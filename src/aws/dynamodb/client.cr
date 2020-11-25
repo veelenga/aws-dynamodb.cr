@@ -50,7 +50,7 @@ module Aws::DynamoDB
           aws_secret_key: @aws_secret_key
         )
       else
-        raise "Unknown signer version: #{version}"
+        raise ArgumentError.new("Unknown signer version: #{version}")
       end
     end
 
