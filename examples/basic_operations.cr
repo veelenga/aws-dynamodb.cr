@@ -8,65 +8,61 @@ client = Aws::DynamoDB::Client.new(
 )
 
 pp client.create_table(
-  %q({
-    "AttributeDefinitions": [
-      {
-        "AttributeName": "ForumName",
-        "AttributeType": "S"
-      },
-      {
-        "AttributeName": "Subject",
-        "AttributeType": "S"
-      },
-      {
-        "AttributeName": "LastPostDateTime",
-        "AttributeType": "S"
-      }
-    ],
-    "TableName": "Thread",
-    "KeySchema": [
-      {
-        "AttributeName": "ForumName",
-        "KeyType":       "HASH"
-      },
-      {
-        "AttributeName": "Subject",
-        "KeyType":       "RANGE"
-      }
-    ],
-    "LocalSecondaryIndexes": [
-      {
-        "IndexName": "LastPostIndex",
-        "KeySchema": [
-          {
-            "AttributeName": "ForumName",
-            "KeyType":       "HASH"
-          },
-          {
-            "AttributeName": "LastPostDateTime",
-            "KeyType":       "RANGE"
-          }
-        ],
-        "Projection": {
-          "ProjectionType": "KEYS_ONLY"
-        }
-      }
-    ],
-    "ProvisionedThroughput": {
-      "ReadCapacityUnits":  5,
-      "WriteCapacityUnits": 5
+  TableName: "Thread",
+  AttributeDefinitions: [
+    {
+      AttributeName: "ForumName",
+      AttributeType: "S",
     },
-    "Tags": [
-      {
-        "Key":   "Owner",
-        "Value": "BlueTeam"
-      }
-    ]
-  })
+    {
+      AttributeName: "Subject",
+      AttributeType: "S",
+    },
+    {
+      AttributeName: "LastPostDateTime",
+      AttributeType: "S",
+    },
+  ],
+  KeySchema: [
+    {
+      AttributeName: "ForumName",
+      KeyType:       "HASH",
+    },
+    {
+      AttributeName: "Subject",
+      KeyType:       "RANGE",
+    },
+  ],
+  LocalSecondaryIndexes: [
+    {
+      IndexName: "LastPostIndex",
+      KeySchema: [
+        {
+          AttributeName: "ForumName",
+          KeyType:       "HASH",
+        },
+        {
+          AttributeName: "LastPostDateTime",
+          KeyType:       "RANGE",
+        },
+      ],
+      Projection: {
+        ProjectionType: "KEYS_ONLY",
+      },
+    },
+  ],
+  ProvisionedThroughput: {
+    ReadCapacityUnits:  5,
+    WriteCapacityUnits: 5,
+  },
+  Tags: [
+    {
+      Key:   "Owner",
+      Value: "BlueTeam",
+    },
+  ],
 )
 
 pp client.list_tables
 
-pp client.delete_table(
-  %q({ "TableName": "Thread" })
-)
+pp client.delete_table(TableName: "Thread")

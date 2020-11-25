@@ -1,6 +1,7 @@
 require "../utils/http"
-require "./types/*"
+require "./types"
 require "awscr-signer"
+require "json"
 
 module Aws::DynamoDB
   class Client
@@ -22,13 +23,13 @@ module Aws::DynamoDB
       Types::ListTablesOutput.from_json(response.body)
     end
 
-    def create_table(params)
-      response = http.post("/", body: params, op: "CreateTable")
+    def create_table(**params)
+      response = http.post("/", body: params.to_json, op: "CreateTable")
       Types::CreateTableOutput.from_json(response.body)
     end
 
-    def delete_table(params)
-      response = http.post("/", body: params, op: "DeleteTable")
+    def delete_table(**params)
+      response = http.post("/", body: params.to_json, op: "DeleteTable")
       Types::DeleteTableOutput.from_json(response.body)
     end
 
