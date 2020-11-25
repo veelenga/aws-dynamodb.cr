@@ -4,25 +4,31 @@ require "awscr-signer"
 
 module Aws::DynamoDB
   class Client
-    SERVICE_NAME = "dynamodb"
-    @signer : Awscr::Signer::Signers::Interface
+    getter http : Utils::Http
 
-    def initialize(@region : String, @aws_access_key : String, @aws_secret_key : String, @endpoint : String? = nil, version : Symbol = :v4)
-      @signer = initialize_signer(version)
+    def initialize(
+      @region : String,
+      @aws_access_key : String,
+      @aws_secret_key : String,
+      @endpoint : String? = nil,
+      version : Symbol = :v4
+    )
+      signer = initialize_signer(version)
+      @http = initialize_http(signer)
     end
 
     def list_tables
-      response = http.post("/", body: "{}", headers: {"X-Amz-Target" => "DynamoDB_20120810.ListTables"})
+      response = http.post("/", body: "{}", op: "ListTables")
       Types::ListTablesOutput.from_json(response.body)
     end
 
     def create_table(params)
-      response = http.post("/", body: params, headers: {"X-Amz-Target" => "DynamoDB_20120810.CreateTable"})
+      response = http.post("/", body: params, op: "CreateTable")
       Types::CreateTableOutput.from_json(response.body)
     end
 
     def delete_table(params)
-      response = http.post("/", body: params, headers: {"X-Amz-Target" => "DynamoDB_20120810.DeleteTable"})
+      response = http.post("/", body: params, op: "DeleteTable")
       Types::DeleteTableOutput.from_json(response.body)
     end
 
@@ -30,14 +36,14 @@ module Aws::DynamoDB
       case version
       when :v4
         Awscr::Signer::Signers::V4.new(
-          service: SERVICE_NAME,
+          service: METADATA[:service_name],
           region: @region,
           aws_access_key: @aws_access_key,
           aws_secret_key: @aws_secret_key
         )
       when :v2
         Awscr::Signer::Signers::V2.new(
-          service: SERVICE_NAME,
+          service: METADATA[:service_name],
           region: @region,
           aws_access_key: @aws_access_key,
           aws_secret_key: @aws_secret_key
@@ -47,8 +53,13 @@ module Aws::DynamoDB
       end
     end
 
-    private def http
-      Utils::Http.new(signer: @signer, region: @region, custom_endpoint: @endpoint, service_name: SERVICE_NAME)
+    private def initialize_http(signer)
+      Utils::Http.new(
+        signer: signer,
+        region: @region,
+        custom_endpoint: @endpoint,
+        service_name: METADATA[:service_name]
+      )
     end
   end
 end

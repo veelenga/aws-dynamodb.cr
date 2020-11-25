@@ -15,8 +15,12 @@ module Aws::Utils
       @http.before_request { |request| @signer.sign(request) }
     end
 
-    def post(path, body = nil, headers : Hash(String, String) = Hash(String, String).new)
-      headers = HTTP::Headers{"Content-Type" => "application/x-amz-json-1.0"}.merge!(headers)
+    def post(path, body : String, op : String)
+      headers = HTTP::Headers{
+        "X-Amz-Date"   => Time.utc.to_s,
+        "X-Amz-Target" => "#{DynamoDB::METADATA[:target_prefix]}.#{op}",
+        "Content-Type" => "application/x-amz-json-1.0",
+      }
       resp = @http.post(path, headers: headers, body: body)
       handle_response!(resp)
     end

@@ -1,4 +1,4 @@
-require "../src/aws/dynamodb/client"
+require "../src/aws/dynamodb"
 
 client = Aws::DynamoDB::Client.new(
   region: "eu-central-1",
