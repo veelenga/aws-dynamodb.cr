@@ -33,6 +33,16 @@ module Aws::DynamoDB
       Types::DeleteTableOutput.from_json(response.body)
     end
 
+    def put_item(**params)
+      response = http.post("/", body: params.to_json, op: "PutItem")
+      Types::PutItemOutput.from_json(response.body)
+    end
+
+    def get_item(**params)
+      response = http.post("/", body: params.to_json, op: "GetItem")
+      Types::GetItemOutput.from_json(response.body)
+    end
+
     private def initialize_signer(version)
       case version
       when :v4

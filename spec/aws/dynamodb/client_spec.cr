@@ -106,5 +106,84 @@ module Aws::DynamoDB
         end
       end
     end # delete_table
+
+    describe "#put_item" do
+      it "sends a valid request and returns response" do
+        request = {
+          TableName: "Table1",
+          Item: {
+            AttributeName: "value"
+          }
+        }
+
+        response = {
+          Attributes: {
+            AttributeName: {
+              Value: "value"
+            }
+          }
+        }
+
+        stub_client(request, response, "PutItem")
+        resp = new_client.put_item(**request)
+        resp["Attributes"].should_not be_nil
+      end
+
+      it "raises in case of error" do
+        stub_client_error
+        expect_raises(Utils::Http::ServerError, "Invalid params") do
+          new_client.put_item(TableName: "Doe")
+        end
+      end
+    end # put_item
+
+    describe "#get_item" do
+      it "sends a valid request and returns response" do
+        request = {
+          TableName: "Table1",
+          Key: {
+            ForumName: {
+              "S": "Amazon DynamoDB"
+            },
+            Subject: {
+              "S": "How do I update multiple items?"
+            }
+          },
+          ProjectionExpression:"LastPostDateTime, Message, Tags",
+          ConsistentRead: true,
+          ReturnConsumedCapacity: "TOTAL"
+        }
+
+        response = {
+          ConsumedCapacity: {
+            CapacityUnits: 1,
+            TableName: "Thread",
+            ReadCapacityUnits: nil,
+            WriteCapacityUnits: nil
+          },
+          Item: {
+            Tags: {
+              SS: ["Update","Multiple Items","HelpMe"]
+            },
+            Message: {
+              S: "Message"
+            }
+          }
+        }
+
+        stub_client(request, response, "GetItem")
+        resp = new_client.get_item(**request)
+        resp["ConsumedCapacity"].should eq response["ConsumedCapacity"]
+        resp["Item"]["Tags"]["SS"].should eq response["Item"]["Tags"]["SS"]
+        resp["Item"]["Message"]["S"].should eq response["Item"]["Message"]["S"]
+      end
+
+      it "raises in case of error" do
+        stub_client_error
+        expect_raises(Utils::Http::ServerError, "Invalid params") do
+          new_client.get_item(TableName: "Doe")
+        end
+      end
+    end # get_item
   end   # Client
 end
