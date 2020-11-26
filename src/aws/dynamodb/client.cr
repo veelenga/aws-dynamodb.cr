@@ -8,9 +8,9 @@ module Aws::DynamoDB
     getter http : Utils::Http
 
     def initialize(
-      @region : String,
-      @aws_access_key : String,
-      @aws_secret_key : String,
+      @region : String = ENV["AWS_REGION"],
+      @aws_access_key : String = ENV["AWS_ACCESS_KEY"],
+      @aws_secret_key : String = ENV["AWS_SECRET_KEY"],
       @endpoint : String? = nil,
       version : Symbol = :v4
     )

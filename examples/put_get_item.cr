@@ -1,9 +1,6 @@
 require "../src/aws/dynamodb"
 
 client = Aws::DynamoDB::Client.new(
-  region: ENV["AWS_REGION"],
-  aws_access_key: ENV["AWS_ACCESS_KEY"],
-  aws_secret_key: ENV["AWS_SECRET_KEY"],
   endpoint: ENV["DYNAMODB_URL"]? || "http://localhost:8000"
 )
 
