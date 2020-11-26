@@ -1,6 +1,6 @@
 # aws-dynamodb
 
-AWS DynamoDB Client.
+Crystal client for AWS DynamoDB.
 
 ## Installation
 
