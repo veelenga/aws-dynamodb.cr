@@ -91,7 +91,14 @@ response["Item"]["Name"].s #=> "The Dark Knight"
 
 ## Development
 
-1. [Setting Up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html)
+1. [Setting Up DynamoDB Local](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html).
+Alternatively it can be running in a container:
+
+``` sh
+$ docker pull amazon/dynamodb-local
+$ docker run -p 8000:8000 amazon/dynamodb-local
+```
+
 2. Pass credentials + DB URL and run the examples:
 
 ```sh
