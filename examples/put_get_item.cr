@@ -1,4 +1,4 @@
-require "../src/aws/dynamodb"
+require "../src/aws-dynamodb"
 
 client = Aws::DynamoDB::Client.new(
   endpoint: ENV["DYNAMODB_URL"]? || "http://localhost:8000"

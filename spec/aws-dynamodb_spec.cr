@@ -1,4 +1,4 @@
-require "../spec_helper"
+require "./spec_helper"
 
 describe Aws::DynamoDB do
   it "holds a version" do

@@ -1,11 +1,11 @@
-require "../utils/http"
+require "./http"
 require "./types"
 require "awscr-signer"
 require "json"
 
 module Aws::DynamoDB
   class Client
-    getter http : Utils::Http
+    getter http : Http
 
     def initialize(
       @region : String = ENV["AWS_REGION"],
@@ -65,7 +65,7 @@ module Aws::DynamoDB
     end
 
     private def initialize_http(signer)
-      Utils::Http.new(
+      Http.new(
         signer: signer,
         region: @region,
         custom_endpoint: @endpoint,

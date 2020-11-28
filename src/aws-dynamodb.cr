@@ -1,4 +1,4 @@
-require "./dynamodb/client"
+require "./aws-dynamodb/client"
 
 module Aws::DynamoDB
   VERSION = "0.1.0"

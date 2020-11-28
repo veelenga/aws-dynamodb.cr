@@ -1,4 +1,4 @@
-require "../../spec_helper"
+require "../spec_helper"
 
 module Aws::DynamoDB
   describe Client do
@@ -31,7 +31,7 @@ module Aws::DynamoDB
       it "raises in case of error" do
         stub_client_error
 
-        expect_raises(Utils::Http::ServerError, "Invalid params") do
+        expect_raises(Http::ServerError, "Invalid params") do
           new_client.list_tables
         end
       end
@@ -73,7 +73,7 @@ module Aws::DynamoDB
 
       it "raises in case of error" do
         stub_client_error
-        expect_raises(Utils::Http::ServerError, "Invalid params") do
+        expect_raises(Http::ServerError, "Invalid params") do
           new_client.create_table(TableName: "Doe")
         end
       end
@@ -101,7 +101,7 @@ module Aws::DynamoDB
 
       it "raises in case of error" do
         stub_client_error
-        expect_raises(Utils::Http::ServerError, "Invalid params") do
+        expect_raises(Http::ServerError, "Invalid params") do
           new_client.delete_table(TableName: "Doe")
         end
       end
@@ -131,7 +131,7 @@ module Aws::DynamoDB
 
       it "raises in case of error" do
         stub_client_error
-        expect_raises(Utils::Http::ServerError, "Invalid params") do
+        expect_raises(Http::ServerError, "Invalid params") do
           new_client.put_item(TableName: "Doe")
         end
       end
@@ -180,7 +180,7 @@ module Aws::DynamoDB
 
       it "raises in case of error" do
         stub_client_error
-        expect_raises(Utils::Http::ServerError, "Invalid params") do
+        expect_raises(Http::ServerError, "Invalid params") do
           new_client.get_item(TableName: "Doe")
         end
       end

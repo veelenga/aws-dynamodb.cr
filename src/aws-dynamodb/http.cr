@@ -1,6 +1,6 @@
 require "uri"
 
-module Aws::Utils
+module Aws::DynamoDB
   class Http
     class ServerError < Exception
     end

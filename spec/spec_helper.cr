@@ -1,7 +1,6 @@
 require "spec"
 require "webmock"
-require "../src/aws"
-require "../src/aws/dynamodb"
+require "../src/aws-dynamodb"
 
 DEFAULT_ENDPOINT = "http://localhost:8000"
 

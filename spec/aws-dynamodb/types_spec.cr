@@ -1,4 +1,4 @@
-require "../../spec_helper"
+require "../spec_helper"
 
 module Aws::DynamoDB::Types
   describe AttributeValue do
