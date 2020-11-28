@@ -174,8 +174,8 @@ module Aws::DynamoDB
         stub_client(request, response, "GetItem")
         resp = new_client.get_item(**request)
         resp["ConsumedCapacity"].should eq response["ConsumedCapacity"]
-        resp["Item"]["Tags"]["SS"].should eq response["Item"]["Tags"]["SS"]
-        resp["Item"]["Message"]["S"].should eq response["Item"]["Message"]["S"]
+        resp["Item"].try &.["Tags"]["SS"].should eq response["Item"]["Tags"]["SS"]
+        resp["Item"].try &.["Message"]["S"].should eq response["Item"]["Message"]["S"]
       end
 
       it "raises in case of error" do

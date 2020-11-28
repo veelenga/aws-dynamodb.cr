@@ -146,7 +146,7 @@ module Aws::DynamoDB::Types
   )
 
   GetItemOutput = NamedTuple(
-    Item: Hash(String, AttributeValue),
+    Item: Hash(String, AttributeValue)?,
     ConsumedCapacity: ConsumedCapacity?,
   )
 

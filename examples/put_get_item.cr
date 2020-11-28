@@ -114,6 +114,6 @@ response = client.get_item(
 )
 
 pp response
-pp response["Item"]["Message"].s
-pp response["Item"]["LastPostDateTime"].s
-pp response["Item"]["Tags"].ss
+pp response["Item"].try &.["Message"].s
+pp response["Item"].try &.["LastPostDateTime"].s
+pp response["Item"].try &.["Tags"].ss

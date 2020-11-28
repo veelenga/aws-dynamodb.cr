@@ -86,7 +86,7 @@ response = client.get_item(
     Name: { S: "The Dark Knight" }
   }
 )
-response["Item"]["Name"].s #=> "The Dark Knight"
+response["Item"].try &.["Name"].s #=> "The Dark Knight"
 ```
 
 ## Development
