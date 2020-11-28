@@ -17,7 +17,6 @@ module Aws::Utils
 
     def post(path, body : String, op : String)
       headers = HTTP::Headers{
-        "X-Amz-Date"   => Time.utc.to_s,
         "X-Amz-Target" => "#{DynamoDB::METADATA[:target_prefix]}.#{op}",
         "Content-Type" => "application/x-amz-json-1.0",
       }
