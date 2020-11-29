@@ -7,8 +7,8 @@ DEFAULT_ENDPOINT = "http://localhost:8000"
 def new_client(version = :v4, endpoint = DEFAULT_ENDPOINT)
   Aws::DynamoDB::Client.new(
     region: "region",
-    aws_access_key: "aws_access_key",
-    aws_secret_key: "aws_secret_key",
+    aws_access_key_id: "aws_access_key_id",
+    aws_secret_access_key: "aws_secret_access_key",
     endpoint: endpoint,
     version: version
   )

@@ -23,8 +23,8 @@ require "aws/dynamodb"
 
 client = Aws::DynamoDB::Client.new(
   region: ENV["AWS_REGION"],
-  aws_access_key: ENV["AWS_ACCESS_KEY"],
-  aws_secret_key: ENV["AWS_SECRET_KEY"],
+  aws_access_key_id: ENV["AWS_ACCESS_KEY_ID"],
+  aws_secret_access_key: ENV["AWS_SECRET_ACCESS_KEY"],
   endpoint: ENV["DYNAMODB_URL"]
 )
 
@@ -103,8 +103,8 @@ $ docker run -p 8000:8000 amazon/dynamodb-local
 
 ```sh
 $ AWS_REGION=..\
-  AWS_ACCESS_KEY=...\
-  AWS_SECRET_KEY=...\
+  AWS_ACCESS_KEY_ID=...\
+  AWS_SECRET_ACCESS_KEY=...\
   DYNAMODB_URL=http://localhost:8000\
   crystal examples/put_get_item.cr
 ```

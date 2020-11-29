@@ -9,8 +9,8 @@ module Aws::DynamoDB
 
     def initialize(
       @region : String = ENV["AWS_REGION"],
-      @aws_access_key : String = ENV["AWS_ACCESS_KEY"],
-      @aws_secret_key : String = ENV["AWS_SECRET_KEY"],
+      @aws_access_key_id : String = ENV["AWS_ACCESS_KEY_ID_ID"],
+      @aws_secret_access_key : String = ENV["AWS_SECRET_ACCESS_KEY"],
       @endpoint : String? = nil,
       version : Symbol = :v4
     )
@@ -49,15 +49,15 @@ module Aws::DynamoDB
         Awscr::Signer::Signers::V4.new(
           service: METADATA[:service_name],
           region: @region,
-          aws_access_key: @aws_access_key,
-          aws_secret_key: @aws_secret_key
+          aws_access_key: @aws_access_key_id,
+          aws_secret_key: @aws_secret_access_key
         )
       when :v2
         Awscr::Signer::Signers::V2.new(
           service: METADATA[:service_name],
           region: @region,
-          aws_access_key: @aws_access_key,
-          aws_secret_key: @aws_secret_key
+          aws_access_key: @aws_access_key_id,
+          aws_secret_key: @aws_secret_access_key
         )
       else
         raise ArgumentError.new("Unknown signer version: #{version}")
