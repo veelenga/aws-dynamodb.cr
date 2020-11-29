@@ -9,7 +9,7 @@ module Aws::DynamoDB
 
     def initialize(
       @region : String = ENV["AWS_REGION"],
-      @aws_access_key_id : String = ENV["AWS_ACCESS_KEY_ID_ID"],
+      @aws_access_key_id : String = ENV["AWS_ACCESS_KEY_ID"],
       @aws_secret_access_key : String = ENV["AWS_SECRET_ACCESS_KEY"],
       @endpoint : String? = nil,
       version : Symbol = :v4
