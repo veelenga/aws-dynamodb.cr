@@ -11,6 +11,7 @@ module Aws::DynamoDB
       @region : String = ENV["AWS_REGION"],
       @aws_access_key_id : String = ENV["AWS_ACCESS_KEY_ID"],
       @aws_secret_access_key : String = ENV["AWS_SECRET_ACCESS_KEY"],
+      @aws_session_token : String? = ENV["AWS_SESSION_TOKEN"]?,
       @endpoint : String? = nil,
       version : Symbol = :v4
     )
@@ -50,7 +51,8 @@ module Aws::DynamoDB
           service: METADATA[:service_name],
           region: @region,
           aws_access_key: @aws_access_key_id,
-          aws_secret_key: @aws_secret_access_key
+          aws_secret_key: @aws_secret_access_key,
+          amz_security_token: @aws_session_token
         )
       when :v2
         Awscr::Signer::Signers::V2.new(
